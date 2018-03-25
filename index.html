@@ -1,10 +1,8 @@
 <html>
 <head>
     <meta content="width=device-width,initial-scale=1.0" name="viewport"/>
-    
     <title>ModuleLoader Test</title>
     <link rel="stylesheet" href="http://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
-    
 </head>
 <body>
     <h1>ModuleLoader Test</h1>
@@ -25,9 +23,9 @@
         let counter = 0;
         let total = getUrlParam('total') || 10;
         const avg = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
-        
+
         function testLoadTime (i) {
-            testIframe.src = `./${i}/index.html`;
+            testIframe.src = `./${i}.html`;
         }
         function finishTest () {
             if (++counter < total) {
@@ -55,7 +53,7 @@
         goButton.onclick = function () {
             testLoadTime(i)
         };
-        
+
     </script>
 </body>
 </html>

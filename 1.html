@@ -6,12 +6,12 @@
     <h2>Test 1: <strong id=time></strong></h2>
     <div id="player-wrapper"></div>
     
-    <script type="text/javascript" src="../module-loader.js"></script>
-    <script type="text/javascript" src="../performance-test.js"></script>
-    <link href="../video-app.js" rel="preload" as="script">
+    <script type="text/javascript" src="module-loader.js"></script>
+    <script type="text/javascript" src="performance-test.js"></script>
+    <link href="video-app.js" rel="preload" as="script">
     <script type="text/javascript">
         const playerWrapper = document.getElementById('player-wrapper');
-        const iframeScriptUrl = '../video-app.js';
+        const iframeScriptUrl = 'video-app.js';
         const name = 'test-1';
         
         function renderTime (time) {
