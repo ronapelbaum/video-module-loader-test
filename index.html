@@ -19,19 +19,24 @@
         const times = {};
         const testIframe = document.getElementById('test-iframe');
         const goButton = document.getElementById('go-button');
-        let i = 1;
+        const files = [
+            './2.html',
+            './1.html',
+            './3.html',
+        ];
+        let i = 0;
         let counter = 0;
         let total = getUrlParam('total') || 10;
         const avg = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
 
         function testLoadTime (i) {
-            testIframe.src = `./${i}.html`;
+            testIframe.src = files[i];
         }
         function finishTest () {
             if (++counter < total) {
                 testIframe.contentWindow.location.reload();
             } else {
-                if(i < 3){
+                if(i < files.length - 1){
                     counter = 0;
                     testLoadTime(++i);
                 } else {
