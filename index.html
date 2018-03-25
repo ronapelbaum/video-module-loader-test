@@ -1,30 +1,61 @@
 <html>
-    <head>
-	    <meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<head>
+    <meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+    
+    <title>ModuleLoader Test</title>
+    <link rel="stylesheet" href="http://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
+    
+</head>
+<body>
+    <h1>ModuleLoader Test</h1>
+    <button id=go-button>Go</button>
+    <iframe id=test-iframe frameBorder=0 width=100% height=100% scrolling=no allowfullscreen></iframe>
+    <script type="text/javascript">
+        function getUrlParam(param){
+            try {
+                return location.search.match(new RegExp(param+'\=([^&]+)'))[1];
+            } catch (e) {
+                // do nothing
+            }
+        }
+        const times = {};
+        const testIframe = document.getElementById('test-iframe');
+        const goButton = document.getElementById('go-button');
+        let i = 1;
+        let counter = 0;
+        let total = getUrlParam('total') || 10;
+        const avg = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
         
-        <title>ModuleLoader Test</title>
-        <link rel="stylesheet" href="http://cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css">
-
-    </head>
-    <body>
-            <div class="container">
-                    <div class="row">
-                            <div class="column">
-                                <h1>ModuleLoader Test</h1>
-                            </div>
-                        </div>
-                    <div class="row">
-                        <div class="column">
-                            <iframe frameBorder=0 width=100% height=100% src="./1/index.html"></iframe>
-                        </div>
-                        <div class="column">
-                            <iframe frameBorder=0 width=100% height=100% src="./2/index.html"></iframe>
-                        </div>
-                        <div class="column">
-                            <iframe frameBorder=0 width=100% height=100% src="./3/index.html"></iframe>
-                        </div>
-                    </div>
-                </div>
-        </script>
-    </body>
+        function testLoadTime (i) {
+            testIframe.src = `./${i}/index.html`;
+        }
+        function finishTest () {
+            if (++counter < total) {
+                testIframe.contentWindow.location.reload();
+            } else {
+                if(i < 3){
+                    counter = 0;
+                    testLoadTime(++i);
+                } else {
+                    for (var tname in times) {
+                        if (Object.prototype.hasOwnProperty.call(times, tname)) {
+                            console.log('AVG', tname, avg(times[tname]));
+                        }
+                    }
+                }
+            }
+        }
+        function reportLoadTime(name, time){
+            console.log('reportLoadTime', name, time);
+            times[name] = times[name] || [];
+            times[name].push(time);
+            finishTest();
+        }
+        goButton.innerHTML = `Go (${total})`;
+        goButton.onclick = function () {
+            testLoadTime(i)
+        };
+        
+    </script>
+</body>
 </html>
