@@ -4,22 +4,25 @@
 </head>
 <body>
     <h2>Test 3: <strong id=time></strong></h2>
-    <p>
-        video app code in outer frame. 
-        <br/> 
-        iframe main code is written to iframe document using <code>iframe.contentDocument.write()</code>
-    </p>
     <div id="player-wrapper"></div>
     <script type="text/javascript" src="../module-loader.js"></script>
     <script type="text/javascript" src="../performance-test.js"></script>
     <script type="text/javascript" src="../video-app.js"></script>
     <script type="text/javascript">
         const playerWrapper = document.getElementById('player-wrapper');
-        
+        const name = 'test-3';
+       
         function renderTime (time) {
             document.getElementById('time').innerHTML = time + 'ms';
         }
-        
+        function done(time) {
+            if (parent.reportLoadTime){
+                parent.reportLoadTime(name, +time);
+            } else {
+                renderTime(time);
+            }
+        }
+
         function loadModuleAsync(){
             return new Promise(function(resolve, reject) {
                 loadModule(playerWrapper, {
@@ -29,7 +32,7 @@
             });
         }
         
-        performanceTest('test-3', loadModuleAsync).then(renderTime);
+        performanceTest(name, loadModuleAsync).then(done);
         // multiPerformanceTest('test-a', loadModuleAsync, 5).then(renderTime);
     </script>
 </body>

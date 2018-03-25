@@ -1,6 +1,6 @@
 window.createPlayer = (function (){
     return function createPlayer(container, onLoadCallback){
-        console.log('createPlayer', container);
+        // console.log('createPlayer', container);
         const videoElement = document.createElement('video');
         videoElement.src = 'https://www.w3schools.com/html/mov_bbb.mp4';
         // videoElement.style = 'width:90%';
