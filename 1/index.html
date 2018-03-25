@@ -26,8 +26,7 @@
             return new Promise(function(resolve, reject) {
                 loadModule(playerWrapper, {
                     mainCallback: 'createPlayer',
-                    mainInIframe: true,
-                    writeHtml: true,
+                    method: 1,
                     scriptUrl: iframeScriptUrl
                 }, resolve);
             });

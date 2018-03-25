@@ -23,8 +23,7 @@
             return new Promise(function(resolve, reject) {
                 loadModule(playerWrapper, {
                     mainCallback: 'createPlayer',
-                    mainInIframe: false,
-                    writeHtml: false
+                    method: 2
                 }, resolve);
             });
         }

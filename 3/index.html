@@ -24,8 +24,7 @@
             return new Promise(function(resolve, reject) {
                 loadModule(playerWrapper, {
                     mainCallback: 'createPlayer',
-                    mainInIframe: false,
-                    writeHtml: true
+                    method: 3
                 }, resolve);
             });
         }
