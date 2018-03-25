@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title>ModuleLoader test 3</title>
+</head>
+<body>
+    <h2>Test 3: <strong id=time></strong></h2>
+    <p>
+        video app code in outer frame. 
+        <br/> 
+        iframe main code is written to iframe document using <code>iframe.contentDocument.write()</code>
+    </p>
+    <div id="player-wrapper"></div>
+    <script type="text/javascript" src="../module-loader.js"></script>
+    <script type="text/javascript" src="../performance-test.js"></script>
+    <script type="text/javascript" src="../video-app.js"></script>
+    <script type="text/javascript">
+        const playerWrapper = document.getElementById('player-wrapper');
+        
+        function renderTime (time) {
+            document.getElementById('time').innerHTML = time + 'ms';
+        }
+        
+        function loadModuleAsync(){
+            return new Promise(function(resolve, reject) {
+                loadModule(playerWrapper, {
+                    mainCallback: 'createPlayer',
+                    mainInIframe: false,
+                    writeHtml: true
+                }, resolve);
+            });
+        }
+        
+        performanceTest('test-3', loadModuleAsync).then(renderTime);
+        // multiPerformanceTest('test-a', loadModuleAsync, 5).then(renderTime);
+    </script>
+</body>
+</html>
